@@ -31,7 +31,7 @@ const answer = await inquirer.prompt([
             name:'framework',
             message:'What framework do you want to use?',
             default: 'react',
-            choices: ['react', 'vue', 'angular']
+            choices: ['react', 'vue', 'angular','manilla.js']
         },
         {
             type:'input',
@@ -56,7 +56,7 @@ const answer = await inquirer.prompt([
     fs.mkdirSync(`${answer.name}/public`,'0777',error=>(error))
     //Copyng required files base
     fs.copyFileSync(path.join(__dirname,'templates/base/.eslintrc.json'),`${answer.name}/.eslintrc.json`)
-    // fs.copyFileSync(path.join(__dirname,'templates/base/.gitignore'),`${answer.name}/.gitignore`)
+    fs.copyFileSync(path.join(__dirname,'templates/base/gitignore.txt'),`${answer.name}/.gitignore`)
     switch(answer.framework){
       case 'react':
         fs.mkdirSync(path.join(`${answer.name}/src/components`),'0777',error=>(error))
@@ -82,6 +82,9 @@ const answer = await inquirer.prompt([
         break;
       case 'angular':
         break;
+      case 'manilla.js':
+        fs.copyFileSync(path.join(__dirname,'templates/manilla.js/bootstrap.js'),`${answer.name}/src/bootstrap.js`)
+        fs.copyFileSync(path.join(__dirname,'templates/manilla.js/index.js'),`${answer.name}/src/index.js`)
       default:
     }
     
