@@ -81,6 +81,17 @@ const answer = await inquirer.prompt([
         
         break;
       case 'angular':
+        fs.copyFileSync(path.join(__dirname,'templates/angular/.babelrc'),`${answer.name}/.babelrc`)
+        fs.copyFileSync(path.join(__dirname,'templates/angular/tsconfig.json'),`${answer.name}/tsconfig.json`)
+        fs.copyFileSync(path.join(__dirname,'templates/angular/index.html'),`${answer.name}/public/index.html`)
+        fs.copyFileSync(path.join(__dirname,'templates/angular/app.component.css'),`${answer.name}/src/app.component.css`)
+        fs.copyFileSync(path.join(__dirname,'templates/angular/app.component.html'),`${answer.name}/src/app.component.html`)
+        fs.copyFileSync(path.join(__dirname,'templates/angular/app.component.ts'),`${answer.name}/src/app.component.ts`)
+        fs.copyFileSync(path.join(__dirname,'templates/angular/app.module.ts'),`${answer.name}/src/app.module.ts`)
+        fs.copyFileSync(path.join(__dirname,'templates/angular/bootstrap.ts'),`${answer.name}/src/bootstrap.ts`)
+        fs.copyFileSync(path.join(__dirname,'templates/angular/index.ts'),`${answer.name}/src/index.ts`)
+
+        
         break;
       case 'manilla.js':
         fs.mkdirSync(`${answer.name}/src/App`,'0777',error=>(error))
