@@ -84,7 +84,8 @@ const answer = await inquirer.prompt([
         break;
       case 'manilla.js':
         fs.mkdirSync(`${answer.name}/src/App`,'0777',error=>(error))
-        fs.copyFileSync(path.join(__dirname,'templates/manilla.js/App.js'),`${answer.name}/src/App/App.js`)
+        fs.copyFileSync(path.join(__dirname,'templates/manilla.js/AppCreatedWithJS.js'),`${answer.name}/src/App/AppCreatedWithJS.js`)
+        fs.copyFileSync(path.join(__dirname,'templates/manilla.js/componentByHtmlLoader.html'),`${answer.name}/src/App/componentByHtmlLoader.html`)
         fs.copyFileSync(path.join(__dirname,'templates/manilla.js/style.module.css'),`${answer.name}/src/App/style.module.css`)
         fs.copyFileSync(path.join(__dirname,'templates/manilla.js/bootstrap.js'),`${answer.name}/src/bootstrap.js`)
         fs.copyFileSync(path.join(__dirname,'templates/manilla.js/index.js'),`${answer.name}/src/index.js`)
