@@ -9,7 +9,8 @@
   },
   "keywords": [
     "micro",
-    "frontend"
+    "frontend",
+    "react"
   ],
   "author": "Gastón Maximiliano Grecco <gastonmgrecco@gmail.com>",
   "license": "MIT",
@@ -42,13 +43,6 @@
     "eslint-plugin-n": "^15.2.0",
     "eslint-plugin-promise": "^6.0.0",
     "eslint-plugin-react": "^7.29.4"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/GastonMGrecco/micro-frontend.git"
-  },
-  "bugs": {
-    "url": "https://github.com/GastonMGrecco/micro-frontend/issues"
-  },
-  "homepage": "https://github.com/GastonMGrecco/micro-frontend#readme"
+  }
+ 
 }

@@ -52,7 +52,7 @@ module.exports = (env, argv) => {
         template: './public/index.html'
       }),
       new ModuleFederationPlugin({
-        name: 'mymicrofrontend',
+        name: 'my-microfrontend',
         filename: 'remoteEntry.js',
         remotes: {
         },
