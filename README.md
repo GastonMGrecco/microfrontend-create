@@ -4,6 +4,8 @@
 This is a microfrontend project builder. You can create a 'container' or 'child' microfrontend. You will also be able to decide under which development environment to work, be it 'React', 'Vue', 'Angular' or 'Manila.js'
 
 ![](https://avatars.githubusercontent.com/u/61727377?s=280&v=4)
+#### Node.js
+Required 16.14.2 version or higher
 
 #### Install
 
