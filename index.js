@@ -15,9 +15,18 @@ const answer = await inquirer.prompt([
             default: false
         },
         {
+          ///regular expresion = /^[a-zA-Z0-9_]+$/g 
             name:'name',
             message: 'What is your micro-frontend´s name?',
-            default: 'my-microfrontend'
+            default: 'mymicrofrontend',
+            validate: function(input){
+              if(!input.match(/^[a-zA-Z0-9_]+$/g)){
+                console.log('\t You can`t use spaces or special characters')
+                return false
+              }else{
+                return true
+              }
+            }
         },
         {
             type:'list',
@@ -37,7 +46,15 @@ const answer = await inquirer.prompt([
             type:'input',
             name:'port',
             message:'What port do you want to use?',
-            default:'8080'
+            default:'8080',
+            validate: function(input){
+              if(!input.match(/^[0-9]+$/g)){
+                console.log('\t You only can use numbers')
+                return false
+              }else{
+                return true
+              }
+            }
         }
 
     ])
