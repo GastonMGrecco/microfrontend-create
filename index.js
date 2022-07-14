@@ -49,6 +49,7 @@ const answer = await inquirer.prompt([
         port: answer.port
     }
     const __dirname = path.dirname(fileURLToPath(import.meta.url));
+    const fileName = answer.name[0].toUpperCase()+answer.name.toLowerCase().slice(1,answer.name.length)
     //Creating required folders base
     fs.mkdirSync(`${answer.name}`,'0777',error=>(error))
     fs.mkdirSync(`${answer.name}/src`,'0777',error=>(error))
@@ -63,8 +64,7 @@ const answer = await inquirer.prompt([
         fs.mkdirSync(path.join(`${answer.name}/src/hooks`),'0777',error=>(error))
         fs.mkdirSync(path.join(`${answer.name}/src/redux`),'0777',error=>(error))
         fs.mkdirSync(path.join(`${answer.name}/src/routes`),'0777',error=>(error))
-        fs.copyFileSync(path.join(__dirname,'templates/react/App.js'),`${answer.name}/src/App.js`)
-        fs.copyFileSync(path.join(__dirname,'templates/react/bootstrap.js'),`${answer.name}/src/bootstrap.js`)
+        fs.copyFileSync(path.join(__dirname,'templates/react/App.js'),`${answer.name}/src/${fileName}.js`)
         fs.copyFileSync(path.join(__dirname,'templates/react/index.js'),`${answer.name}/src/index.js`)
         fs.copyFileSync(path.join(__dirname,'templates/react/style.module.css'),`${answer.name}/src/style.module.css`)
         break;
@@ -74,7 +74,6 @@ const answer = await inquirer.prompt([
         fs.mkdirSync(`${answer.name}/src/stores`,'0777',error=>(error))
         fs.mkdirSync(`${answer.name}/src/views`,'0777',error=>(error))
         fs.copyFileSync(path.join(__dirname,'templates/vue/App.vue'),`${answer.name}/src/App.vue`)
-        fs.copyFileSync(path.join(__dirname,'templates/vue/bootstrap.js'),`${answer.name}/src/bootstrap.js`)
         fs.copyFileSync(path.join(__dirname,'templates/vue/index.js'),`${answer.name}/src/index.js`)
         fs.copyFileSync(path.join(__dirname,'templates/vue/router/index.js'),`${answer.name}/src/router/index.js`)
         fs.copyFileSync(path.join(__dirname,'templates/vue/stores/counter.js'),`${answer.name}/src/stores/counter.js`)
@@ -88,7 +87,6 @@ const answer = await inquirer.prompt([
         fs.copyFileSync(path.join(__dirname,'templates/angular/app.component.html'),`${answer.name}/src/app.component.html`)
         fs.copyFileSync(path.join(__dirname,'templates/angular/app.component.ts'),`${answer.name}/src/app.component.ts`)
         fs.copyFileSync(path.join(__dirname,'templates/angular/app.module.ts'),`${answer.name}/src/app.module.ts`)
-        fs.copyFileSync(path.join(__dirname,'templates/angular/bootstrap.ts'),`${answer.name}/src/bootstrap.ts`)
         fs.copyFileSync(path.join(__dirname,'templates/angular/index.ts'),`${answer.name}/src/index.ts`)
 
         
@@ -110,7 +108,10 @@ const answer = await inquirer.prompt([
       const streamDeEscritura = fs.createWriteStream(`${answer.name}/webpack.config.js`);
       streamDeLectura.on("data", chunk => {
         const textoParcial = chunk.toString();
-        const textoParcialReemplazado = textoParcial.replace(8081, answer.port).replace("my-microfrontend", answer.name.toLowerCase());
+        const textoParcialReemplazado = textoParcial.replace(8081, answer.port)
+        .replace("my-microfrontend", answer.name.toLowerCase())
+        .replace("./my-microfrontend",`./${fileName}`)
+        .replace("./src/App.js",`./src/${fileName}.js`);
         streamDeEscritura.write(textoParcialReemplazado);
       });
       streamDeEscritura.on("error", err => {
@@ -152,7 +153,8 @@ const answer = await inquirer.prompt([
       const streamHtmlW = fs.createWriteStream(`${answer.name}/public/index.html`);
       streamHtmlR.on("data", chunk => {
         const textoParcial = chunk.toString();
-        const textoParcialReemplazado = textoParcial.replace("my-microfrontend", answer.name.toLowerCase());
+        const textoParcialReemplazado = textoParcial.replace("my-microfrontend", answer.name.toLowerCase())
+        .replace("root", `app-${answer.name.toLowerCase()}`);
         streamHtmlW.write(textoParcialReemplazado);
       });
       streamHtmlW.on("error", err => {
@@ -165,6 +167,31 @@ const answer = await inquirer.prompt([
       streamHtmlR.on("end", () => {
         streamHtmlW.close();
       });
+
+      //Create bootstrap.js or bootstrap.ts
+    const streamDeLecturaB = fs.createReadStream(path.join(__dirname,`templates/${answer.framework}/bootstrap.${answer.framework === 'angular'? 'ts':'js'}`), {
+      autoClose: true,
+    });
+    const streamDeEscrituraB = fs.createWriteStream(`${answer.name}/src/bootstrap.${answer.framework === 'angular'? 'ts':'js'}`);
+    streamDeLecturaB.on("data", chunk => {
+      const textoParcial = chunk.toString();
+      const textoParcialReemplazado = textoParcial
+      .replace("App", fileName)
+      .replace("./App",`./${fileName}`)
+      .replace("<App />",`<${answer.name} />`)
+      .replace("root", `app-${answer.name.toLowerCase()}`)
+      streamDeEscrituraB.write(textoParcialReemplazado);
+    });
+    streamDeEscrituraB.on("error", err => {
+      console.log("Ha ocurrido un error en la escritura del archivo\n", { err });
+    });
+    streamDeLecturaB.on("error", err => {
+      console.log("Ha ocurrido un error\n", { err });
+    });
+    
+    streamDeLecturaB.on("end", () => {
+      streamDeEscrituraB.close();
+    });
 
       shell.echo(`
       Your '${answers.name}' project is ready to go.
