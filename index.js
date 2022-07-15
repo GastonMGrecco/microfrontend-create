@@ -90,10 +90,11 @@ const answer = await inquirer.prompt([
         fs.mkdirSync(`${answer.name}/src/router`,'0777',error=>(error))
         fs.mkdirSync(`${answer.name}/src/stores`,'0777',error=>(error))
         fs.mkdirSync(`${answer.name}/src/views`,'0777',error=>(error))
-        fs.copyFileSync(path.join(__dirname,'templates/vue/App.vue'),`${answer.name}/src/App.vue`)
+        fs.copyFileSync(path.join(__dirname,'templates/vue/App.vue'),`${answer.name}/src/${fileName}.vue`)
         fs.copyFileSync(path.join(__dirname,'templates/vue/index.js'),`${answer.name}/src/index.js`)
         fs.copyFileSync(path.join(__dirname,'templates/vue/router/index.js'),`${answer.name}/src/router/index.js`)
         fs.copyFileSync(path.join(__dirname,'templates/vue/stores/counter.js'),`${answer.name}/src/stores/counter.js`)
+        fs.copyFileSync(path.join(__dirname,'templates/vue/logo.svg'),`${answer.name}/src/assets/logo.svg`)
         
         break;
       case 'angular':
@@ -170,7 +171,8 @@ const answer = await inquirer.prompt([
         const textoParcialReemplazado = textoParcial.replace(8081, answer.port)
         .replace("my-microfrontend", answer.name.toLowerCase())
         .replace("./my-microfrontend",`./${fileName}`)
-        .replace("./src/App.js",`./src/${fileName}.js`);
+        .replace("./src/App.js",`./src/${fileName}.js`)
+        .replace("./src/App.vue",`./src/${fileName}.vue`);
         streamDeEscritura.write(textoParcialReemplazado);
       });
       streamDeEscritura.on("error", err => {
@@ -243,6 +245,9 @@ const answer = await inquirer.prompt([
       .replace("root", `app-${answer.name.toLowerCase()}`)
       .replace("./app.module",`./${answer.name.toLowerCase()}.module`)
       .replace(/ModuleAng/g,`${fileName}Module`)
+      .replace(/AppVue/g,`${fileName}`)
+      .replace('./src/App.vue',`./src/${fileName}.vue`)
+      .replace(`create${fileName}`,'createApp')
       streamDeEscrituraB.write(textoParcialReemplazado);
     });
     streamDeEscrituraB.on("error", err => {

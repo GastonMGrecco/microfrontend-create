@@ -1,6 +1,6 @@
 {
   "name": "microfrontend-create",
-  "version": "1.3.4",
+  "version": "1.3.5",
   "description": "This is a microfrontend project builder. You can create a 'container' or 'child' microfrontend. You will also be able to decide under which development environment to work, be it 'React', 'Vue', 'Angular' or 'Manila.js'",
   "main": "src/index.js",
   "type": "module",

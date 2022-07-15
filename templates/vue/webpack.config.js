@@ -3,7 +3,7 @@ const ModuleFederationPlugin = require('webpack/lib/container/ModuleFederationPl
 const { VueLoaderPlugin } = require('vue-loader');
 const Webpack = require('webpack');
 const path = require('path');
-const deps = require('./vue-project/package.json').dependencies;
+const deps = require('./package.json').dependencies;
 
 
 
@@ -36,11 +36,6 @@ module.exports = (env, argv) => {
           }
         },
         {
-          test: /\.js$/,
-          enforce: 'pre',
-          use: ['source-map-loader']
-        },
-        {
           test: /\.(jpe?g|png|gif|svg)$/i,
           loader: 'file-loader'
         },
@@ -68,7 +63,7 @@ module.exports = (env, argv) => {
         remotes: {
         },
         exposes: {
-          './my-microfrontend': './src/App.js'
+          './my-microfrontend': './src/App.vue'
         },
         shared: {
           ...deps,
