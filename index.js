@@ -100,13 +100,55 @@ const answer = await inquirer.prompt([
         fs.copyFileSync(path.join(__dirname,'templates/angular/.babelrc'),`${answer.name}/.babelrc`)
         fs.copyFileSync(path.join(__dirname,'templates/angular/tsconfig.json'),`${answer.name}/tsconfig.json`)
         fs.copyFileSync(path.join(__dirname,'templates/angular/index.html'),`${answer.name}/public/index.html`)
-        fs.copyFileSync(path.join(__dirname,'templates/angular/app.component.css'),`${answer.name}/src/app.component.css`)
-        fs.copyFileSync(path.join(__dirname,'templates/angular/app.component.html'),`${answer.name}/src/app.component.html`)
-        fs.copyFileSync(path.join(__dirname,'templates/angular/app.component.ts'),`${answer.name}/src/app.component.ts`)
-        fs.copyFileSync(path.join(__dirname,'templates/angular/app.module.ts'),`${answer.name}/src/app.module.ts`)
+        fs.copyFileSync(path.join(__dirname,'templates/angular/app.component.css'),`${answer.name}/src/${answer.name.toLowerCase()}.component.css`)
+        fs.copyFileSync(path.join(__dirname,'templates/angular/app.component.html'),`${answer.name}/src/${answer.name.toLowerCase()}.component.html`)
+        fs.copyFileSync(path.join(__dirname,'templates/angular/app.module.ts'),`${answer.name}/src/${answer.name.toLowerCase()}.module.ts`)
         fs.copyFileSync(path.join(__dirname,'templates/angular/index.ts'),`${answer.name}/src/index.ts`)
-
+        //Create app.module.ts
+        const streamMC = fs.createReadStream(path.join(__dirname,`templates/angular/app.module.ts`), {
+          autoClose: true,
+        });
+        const streamMR = fs.createWriteStream(`${answer.name}/src/${answer.name.toLowerCase()}.module.ts`);
+        streamMC.on("data", chunk => {
+          const textoParcial = chunk.toString();
+          const textoParcialReemplazado = textoParcial.replace(/AppModule/g, `${fileName}Module`)
+          .replace(/AppComponent/g, `${fileName}Component`)
+          .replace('./app.component', `./${answer.name.toLowerCase()}.component`)
+          streamMR.write(textoParcialReemplazado);
+        });
+        streamMR.on("error", err => {
+          console.log("Ha ocurrido un error en la escritura del archivo\n", { err });
+        });
+        streamMC.on("error", err => {
+          console.log("Ha ocurrido un error\n", { err });
+        });
         
+        streamMC.on("end", () => {
+          streamMR.close();
+        });
+        //Create app.component.ts
+        const streamCR = fs.createReadStream(path.join(__dirname,`templates/angular/app.component.ts`), {
+          autoClose: true,
+        });
+        const streamCC = fs.createWriteStream(`${answer.name}/src/${answer.name.toLowerCase()}.component.ts`);
+        streamCR.on("data", chunk => {
+          const textoParcial = chunk.toString();
+          const textoParcialReemplazado = textoParcial.replace("app-angular", `app-${answer.name.toLowerCase()}`)
+          .replace(/AppComponent/, `${fileName}Component`)
+          .replace('./app.component.html', `./${answer.name.toLowerCase()}.component.html`)
+          .replace('./app.component.css', `./${answer.name.toLowerCase()}.component.css`)
+          streamCC.write(textoParcialReemplazado);
+        });
+        streamCC.on("error", err => {
+          console.log("Ha ocurrido un error en la escritura del archivo\n", { err });
+        });
+        streamCR.on("error", err => {
+          console.log("Ha ocurrido un error\n", { err });
+        });
+        
+        streamCR.on("end", () => {
+          streamCC.close();
+        });
         break;
       case 'manilla.js':
         fs.mkdirSync(`${answer.name}/src/App`,'0777',error=>(error))
@@ -171,7 +213,9 @@ const answer = await inquirer.prompt([
       streamHtmlR.on("data", chunk => {
         const textoParcial = chunk.toString();
         const textoParcialReemplazado = textoParcial.replace("my-microfrontend", answer.name.toLowerCase())
-        .replace("root", `app-${answer.name.toLowerCase()}`);
+        .replace("root", `app-${answer.name.toLowerCase()}`)
+        .replace("<app-angular>",`<app-${answer.name.toLowerCase()}>`)
+        .replace("</app-angular>",`</app-${answer.name.toLowerCase()}>`);
         streamHtmlW.write(textoParcialReemplazado);
       });
       streamHtmlW.on("error", err => {
@@ -197,6 +241,8 @@ const answer = await inquirer.prompt([
       .replace("./App",`./${fileName}`)
       .replace("<App />",`<${answer.name} />`)
       .replace("root", `app-${answer.name.toLowerCase()}`)
+      .replace("./app.module",`./${answer.name.toLowerCase()}.module`)
+      .replace(/ModuleAng/g,`${fileName}Module`)
       streamDeEscrituraB.write(textoParcialReemplazado);
     });
     streamDeEscrituraB.on("error", err => {

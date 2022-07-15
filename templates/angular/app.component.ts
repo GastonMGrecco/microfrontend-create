@@ -4,7 +4,7 @@ const component = require('./app.component.html');
 const style = require('./app.component.css')
 
 @Component({
-  selector: 'app-root',
+  selector: 'app-angular',
   template: component.default,
   styleUrls: style.default
  
