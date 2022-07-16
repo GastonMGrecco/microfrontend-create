@@ -1,5 +1,5 @@
 //import tags created by JavaScript
-import { div } from './Component/AppCreatedWithJS'
+import { div } from './Component/ComponentCreatedWithJS'
 
 //import html file converted to string by html-loader from webpack.config.js
 import example from './Component/componentByHtmlLoader.html'
