@@ -40,7 +40,7 @@ const answer = await inquirer.prompt([
             name:'framework',
             message:'What framework do you want to use?',
             default: 'react',
-            choices: ['react', 'vue', 'angular','manilla.js']
+            choices: ['react', 'vue', 'angular','vanillajs']
         },
         {
             type:'input',
@@ -81,6 +81,9 @@ const answer = await inquirer.prompt([
         fs.mkdirSync(path.join(`${answer.name}/src/hooks`),'0777',error=>(error))
         fs.mkdirSync(path.join(`${answer.name}/src/redux`),'0777',error=>(error))
         fs.mkdirSync(path.join(`${answer.name}/src/routes`),'0777',error=>(error))
+        fs.copyFileSync(path.join(__dirname,'templates/react/Logo.js'),`${answer.name}/src/components/Logo.js`)
+        fs.copyFileSync(path.join(__dirname,'templates/react/stylelogo.module.css'),`${answer.name}/src/components/stylelogo.module.css`)
+        fs.copyFileSync(path.join(__dirname,'templates/react/logo.svg'),`${answer.name}/src/assets/logo.svg`)
         fs.copyFileSync(path.join(__dirname,'templates/react/App.js'),`${answer.name}/src/${fileName}.js`)
         fs.copyFileSync(path.join(__dirname,'templates/react/index.js'),`${answer.name}/src/index.js`)
         fs.copyFileSync(path.join(__dirname,'templates/react/style.module.css'),`${answer.name}/src/style.module.css`)
@@ -151,13 +154,13 @@ const answer = await inquirer.prompt([
           streamCC.close();
         });
         break;
-      case 'manilla.js':
+      case 'vanillajs':
         fs.mkdirSync(`${answer.name}/src/Component`,'0777',error=>(error))
-        fs.copyFileSync(path.join(__dirname,'templates/manilla.js/ComponentCreatedWithJS.js'),`${answer.name}/src/Component/ComponentCreatedWithJS.js`)
-        fs.copyFileSync(path.join(__dirname,'templates/manilla.js/componentByHtmlLoader.html'),`${answer.name}/src/Component/componentByHtmlLoader.html`)
-        fs.copyFileSync(path.join(__dirname,'templates/manilla.js/style.module.css'),`${answer.name}/src/Component/style.module.css`)
-        fs.copyFileSync(path.join(__dirname,'templates/manilla.js/bootstrap.js'),`${answer.name}/src/bootstrap.js`)
-        fs.copyFileSync(path.join(__dirname,'templates/manilla.js/index.js'),`${answer.name}/src/index.js`)
+        fs.copyFileSync(path.join(__dirname,'templates/vanillajs/ComponentCreatedWithJS.js'),`${answer.name}/src/Component/ComponentCreatedWithJS.js`)
+        fs.copyFileSync(path.join(__dirname,'templates/vanillajs/componentByHtmlLoader.html'),`${answer.name}/src/Component/componentByHtmlLoader.html`)
+        fs.copyFileSync(path.join(__dirname,'templates/vanillajs/style.module.css'),`${answer.name}/src/Component/style.module.css`)
+        fs.copyFileSync(path.join(__dirname,'templates/vanillajs/bootstrap.js'),`${answer.name}/src/bootstrap.js`)
+        fs.copyFileSync(path.join(__dirname,'templates/vanillajs/index.js'),`${answer.name}/src/index.js`)
       default:
     }
     

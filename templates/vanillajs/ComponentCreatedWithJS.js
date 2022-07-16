@@ -10,11 +10,11 @@ const img = document.createElement('img');
 
 //Add values 
 
-h1.innerHTML = 'This is my Microfrontend Manilla.js';
+h1.innerHTML = 'This is my Microfrontend VanillaJS';
 h2.innerHTML = 'Hello!, I am a component created through JavaScript'
 //add properties to tags
 
-img.src="https://th.bing.com/th/id/R.a69a6cf8afb4027e2352b871e0b95ad0?rik=iGHrUigS4tapKQ&pid=ImgRaw&r=0";
+img.src="https://wickedev.com/wp-content/uploads/2021/12/javascript-1080x675.jpg";
 
 //Add clasName to be able to use style.modules
 
