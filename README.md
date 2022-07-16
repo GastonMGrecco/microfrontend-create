@@ -1,9 +1,13 @@
 # microfrontend-create
 
 ## Description
-This is a microfrontend project builder. You can create a 'container' or 'child' microfrontend. You will also be able to decide under which development environment to work, be it 'React', 'Vue', 'Angular' or 'Manila.js'
+This is a microfrontend project builder. You can create a 'container' or 'child' microfrontend. You will also be able to decide under which development environment to work, be it 'React', 'Vue', 'Angular' or 'Vanillajs (coming soon Svelte)'
 
 ![](https://avatars.githubusercontent.com/u/61727377?s=280&v=4)
+### From @1.4.0 version 
+
+Since version @1.4.0 you can create a simple microfrontend without big problems, but I am working to make this a great generator (be patient).
+
 #### Node.js
 Required 16.14.2 version or higher
 
@@ -45,3 +49,6 @@ By convention port 8080 is used for the container. Either way, you can change th
 `▶️   cd my-microfrontend`
 `▶️   npm install or npm i`
 `▶️   npm start`
+
+### Contact me
+gastonmgrecco@gmail.com
