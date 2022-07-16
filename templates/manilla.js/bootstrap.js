@@ -12,10 +12,14 @@ const tag = parser.parseFromString(example, "text/html").querySelector('div');
 
 //Append tag created into div
 div.appendChild(tag)
+
+//index.html reference
+const container = document.getElementById('root')
+
 const mount = (element) => {
   return (
             element.appendChild(div) 
          )
 };
-mount(root);
+mount(container);
 export { mount };
