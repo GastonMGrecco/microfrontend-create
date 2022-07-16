@@ -1,8 +1,8 @@
 //import tags created by JavaScript
-import { div } from './App/AppCreatedWithJS'
+import { div } from './Component/AppCreatedWithJS'
 
 //import html file converted to string by html-loader from webpack.config.js
-import example from './App/componentByHtmlLoader.html'
+import example from './Component/componentByHtmlLoader.html'
 
 //create a DOMparser proptype 
 const parser = new DOMParser();

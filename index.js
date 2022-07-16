@@ -152,10 +152,10 @@ const answer = await inquirer.prompt([
         });
         break;
       case 'manilla.js':
-        fs.mkdirSync(`${answer.name}/src/${fileName}`,'0777',error=>(error))
-        fs.copyFileSync(path.join(__dirname,'templates/manilla.js/AppCreatedWithJS.js'),`${answer.name}/src/${fileName}/AppCreatedWithJS.js`)
-        fs.copyFileSync(path.join(__dirname,'templates/manilla.js/componentByHtmlLoader.html'),`${answer.name}/src/${fileName}/componentByHtmlLoader.html`)
-        fs.copyFileSync(path.join(__dirname,'templates/manilla.js/style.module.css'),`${answer.name}/src/${fileName}/style.module.css`)
+        fs.mkdirSync(`${answer.name}/src/Component`,'0777',error=>(error))
+        fs.copyFileSync(path.join(__dirname,'templates/manilla.js/AppCreatedWithJS.js'),`${answer.name}/src/Component/AppCreatedWithJS.js`)
+        fs.copyFileSync(path.join(__dirname,'templates/manilla.js/componentByHtmlLoader.html'),`${answer.name}/src/Component/componentByHtmlLoader.html`)
+        fs.copyFileSync(path.join(__dirname,'templates/manilla.js/style.module.css'),`${answer.name}/src/Component/style.module.css`)
         fs.copyFileSync(path.join(__dirname,'templates/manilla.js/bootstrap.js'),`${answer.name}/src/bootstrap.js`)
         fs.copyFileSync(path.join(__dirname,'templates/manilla.js/index.js'),`${answer.name}/src/index.js`)
       default:
