@@ -40,7 +40,7 @@ const answer = await inquirer.prompt([
             name:'framework',
             message:'What framework do you want to use?',
             default: 'react',
-            choices: ['react', 'vue', 'angular','vanillajs']
+            choices: ['react', 'vue', 'angular','vanillajs','svelte']
         },
         {
             type:'input',
@@ -161,6 +161,10 @@ const answer = await inquirer.prompt([
         fs.copyFileSync(path.join(__dirname,'templates/vanillajs/style.module.css'),`${answer.name}/src/Component/style.module.css`)
         fs.copyFileSync(path.join(__dirname,'templates/vanillajs/bootstrap.js'),`${answer.name}/src/bootstrap.js`)
         fs.copyFileSync(path.join(__dirname,'templates/vanillajs/index.js'),`${answer.name}/src/index.js`)
+        break;
+      case 'svelte':
+        fs.copyFileSync(path.join(__dirname,'templates/svelte/App.svelte'),`${answer.name}/src/${fileName}.svelte`)
+        fs.copyFileSync(path.join(__dirname,'templates/svelte/index.js'),`${answer.name}/src/index.js`)
       default:
     }
     
@@ -175,7 +179,8 @@ const answer = await inquirer.prompt([
         .replace("my-microfrontend", answer.name.toLowerCase())
         .replace("./my-microfrontend",`./${fileName}`)
         .replace("./src/App.js",`./src/${fileName}.js`)
-        .replace("./src/App.vue",`./src/${fileName}.vue`);
+        .replace("./src/App.vue",`./src/${fileName}.vue`)
+        .replace("./src/App.svelte",`./src/${fileName}.svelte`);
         streamDeEscritura.write(textoParcialReemplazado);
       });
       streamDeEscritura.on("error", err => {
@@ -220,7 +225,8 @@ const answer = await inquirer.prompt([
         const textoParcialReemplazado = textoParcial.replace("my-microfrontend", answer.name.toLowerCase())
         .replace("root", `app-${answer.name.toLowerCase()}`)
         .replace("<app-angular>",`<app-${answer.name.toLowerCase()}>`)
-        .replace("</app-angular>",`</app-${answer.name.toLowerCase()}>`);
+        .replace("</app-angular>",`</app-${answer.name.toLowerCase()}>`)
+        .replace('<main></main>',`<${answer.name.toLowerCase()}></${answer.name.toLowerCase()}>`);
         streamHtmlW.write(textoParcialReemplazado);
       });
       streamHtmlW.on("error", err => {
@@ -251,6 +257,9 @@ const answer = await inquirer.prompt([
       .replace(/AppVue/g,`${fileName}`)
       .replace('./src/App.vue',`./src/${fileName}.vue`)
       .replace(`create${fileName}`,'createApp')
+      .replace('./App.svelte',`./${fileName}.svelte`)
+      .replace('main',`${answer.name.toLowerCase()}`)
+      .replace(/Svelte/g,`${fileName}`);
       streamDeEscrituraB.write(textoParcialReemplazado);
     });
     streamDeEscrituraB.on("error", err => {

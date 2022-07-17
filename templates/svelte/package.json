@@ -2,35 +2,31 @@
   "name": "my-microfrontend",
   "version": "1.0.0",
   "description": "description-project",
-  "main": "src/index.ts",
+  "main": "src/index.js",
   "scripts": {
     "start": "webpack serve --mode=development",
     "build": "webpack --mode=production"
   },
-  "keywords": [],
-  "author": "Gastón Maximiliano Grecco <gastonmgrecco@gmail.com>",
+  "keywords": [
+    "svelte",
+    "microfrontend"
+  ],
+  "author": "Gaston Maximialiano Grecco <gastonmgrecco@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "@angular/cli": "^14.0.4",
-    "@angular/core": "^14.0.5",
-    "@angular/platform-browser": "^14.0.5",
-    "@angular/platform-browser-dynamic": "^14.0.5",
+    "@babel/core": "^7.18.6",
     "@babel/plugin-transform-runtime": "^7.18.6",
     "@babel/preset-env": "^7.18.6",
     "babel-loader": "^8.2.5",
-    "babel-preset-angular": "^6.0.15",
     "css-loader": "^6.7.1",
     "file-loader": "^6.2.0",
-    "html-loader": "^4.1.0",
     "html-webpack-plugin": "^5.5.0",
-    "rxjs": "^7.5.6",
     "style-loader": "^3.3.1",
-    "ts-loader": "^9.3.1",
-    "typescript": "^4.7.4",
+    "svelte": "^3.49.0",
+    "svelte-loader": "^3.1.3",
     "webpack": "^5.73.0",
     "webpack-cli": "^4.10.0",
-    "webpack-dev-server": "^4.9.3",
-    "zone.js": "^0.11.6"
+    "webpack-dev-server": "^4.9.3"
   },
   "devDependencies": {
     "eslint": "^8.14.0",

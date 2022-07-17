@@ -8,6 +8,7 @@ module.exports = (env, argv) => {
   const { mode } = argv;
   const isProduction = mode === 'production';
   return {
+    entry: './src/index.js',
     output: {
       path: path.join(__dirname, 'build'),
       filename: isProduction ? '[name].[contenthash].js' : '[name].js'
@@ -20,16 +21,8 @@ module.exports = (env, argv) => {
       hot: false,
       watchFiles: ['public/**/*']
     },
-    resolve: {
-      extensions: ['.tsx', '.ts', '.js'],
-    },
     module: {
       rules: [
-        {
-          test: /\.(ts|tsx)?$/,
-          use: 'ts-loader',
-          exclude: /node_modules/,
-        },
         {
           test: /\.js?$/,
           exclude: /node_modules/,
@@ -48,8 +41,11 @@ module.exports = (env, argv) => {
           use: ['style-loader', 'css-loader']
         },
         {
-          test: /\.html$/,
-          use: 'html-loader',
+            test: /\.svelte$/,
+            exclude: /node_modules/,
+            use: {
+              loader: 'svelte-loader',
+            }
         }
       ]
     },
@@ -63,14 +59,11 @@ module.exports = (env, argv) => {
         remotes: {
         },
         exposes: {
-          './my-microfrontend': './src/bootstrap.ts'
+           './my-microfrontend': './src/App.svelte'
         },
         shared: {
           ...deps,
-          react: {
-            singleton: true,
-            requiredVersion: deps.react
-          }
+          
         }
       })
     ]
