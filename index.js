@@ -40,7 +40,7 @@ const answer = await inquirer.prompt([
             name:'framework',
             message:'What framework do you want to use?',
             default: 'react',
-            choices: ['react', 'vue', 'angular','vanillajs','svelte']
+            choices: ['react', 'vue', 'angular','svelte','vanillajs','vanillawc']
         },
         {
             type:'input',
@@ -165,6 +165,45 @@ const answer = await inquirer.prompt([
       case 'svelte':
         fs.copyFileSync(path.join(__dirname,'templates/svelte/App.svelte'),`${answer.name}/src/${fileName}.svelte`)
         fs.copyFileSync(path.join(__dirname,'templates/svelte/index.js'),`${answer.name}/src/index.js`)
+        break;
+      case 'vanillawc':
+        fs.mkdirSync(`${answer.name}/src/components`,'0777',error=>(error))
+        fs.mkdirSync(`${answer.name}/src/components/JS`,'0777',error=>(error))
+        fs.mkdirSync(`${answer.name}/src/components/Webpack`,'0777',error=>(error))
+        fs.copyFileSync(path.join(__dirname,'templates/vanillawc/JS/js.html'),`${answer.name}/src/components/JS/js.html`)
+        fs.copyFileSync(path.join(__dirname,'templates/vanillawc/JS/Js.js'),`${answer.name}/src/components/JS/Js.js`)
+        fs.copyFileSync(path.join(__dirname,'templates/vanillawc/Webpack/webpack.html'),`${answer.name}/src/components/Webpack/webpack.html`)
+        fs.copyFileSync(path.join(__dirname,'templates/vanillawc/Webpack/Webpack.js'),`${answer.name}/src/components/Webpack/Webpack.js`)
+        fs.copyFileSync(path.join(__dirname,'templates/vanillawc/Webpack/webpackstyle.css'),`${answer.name}/src/components/Webpack/webpackstyle.css`)
+        fs.copyFileSync(path.join(__dirname,'templates/vanillawc/index.js'),`${answer.name}/src/index.js`)
+        fs.copyFileSync(path.join(__dirname,'templates/vanillawc/App.html'),`${answer.name}/src/${fileName}.html`)
+        fs.copyFileSync(path.join(__dirname,'templates/vanillawc/style.css'),`${answer.name}/src/style.css`)
+
+
+        //Create App.js 
+    const streamDeLectura = fs.createReadStream(path.join(__dirname,`templates/${answer.framework}/App.js`), {
+      autoClose: true,
+    });
+    const streamDeEscritura = fs.createWriteStream(`${answer.name}/src/${fileName}.js`);
+    streamDeLectura.on("data", chunk => {
+      const textoParcial = chunk.toString();
+      const textoParcialReemplazado = textoParcial.replace(/app/g,`${answer.name.toLowerCase()}`)
+      .replace('./App.html', `./${fileName}.html`)
+      .replace(/App/g, `${fileName}`)
+      .replace(/name/g,`${answer.name.toLowerCase()}-app`)
+
+      streamDeEscritura.write(textoParcialReemplazado);
+    });
+    streamDeEscritura.on("error", err => {
+      console.log("Ha ocurrido un error en la escritura del archivo\n", { err });
+    });
+    streamDeLectura.on("error", err => {
+      console.log("Ha ocurrido un error\n", { err });
+    });
+    
+    streamDeLectura.on("end", () => {
+      streamDeEscritura.close();
+    });
       default:
     }
     
@@ -226,7 +265,8 @@ const answer = await inquirer.prompt([
         .replace("root", `app-${answer.name.toLowerCase()}`)
         .replace("<app-angular>",`<app-${answer.name.toLowerCase()}>`)
         .replace("</app-angular>",`</app-${answer.name.toLowerCase()}>`)
-        .replace('<main></main>',`<${answer.name.toLowerCase()}></${answer.name.toLowerCase()}>`);
+        .replace('<main></main>',`<${answer.name.toLowerCase()}></${answer.name.toLowerCase()}>`)
+        
         streamHtmlW.write(textoParcialReemplazado);
       });
       streamHtmlW.on("error", err => {
@@ -259,7 +299,8 @@ const answer = await inquirer.prompt([
       .replace(`create${fileName}`,'createApp')
       .replace('./App.svelte',`./${fileName}.svelte`)
       .replace('main',`${answer.name.toLowerCase()}`)
-      .replace(/Svelte/g,`${fileName}`);
+      .replace(/Svelte/g,`${fileName}`)
+      .replace(`<my-app />`,`<${answer.name.toLowerCase()}-app />`)
       streamDeEscrituraB.write(textoParcialReemplazado);
     });
     streamDeEscrituraB.on("error", err => {

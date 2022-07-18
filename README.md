@@ -1,10 +1,11 @@
 # microfrontend-create
 
 ## Description
-This is a microfrontend project builder through webpack v5 (ModuleFederationPlugin). You can create a 'container' or 'child' microfrontend. You will also be able to decide under which development environment to work, be it 'React', 'Vue', 'Angular', 'Svelte' or 'Vanillajs'
+This is a microfrontend project builder through webpack v5 (ModuleFederationPlugin). You can create a 'container' or 'child' microfrontend. You will also be able to decide under which development environment to work, be it 'React', 'Vue', 'Angular', 'Svelte' , 'Vanillajs' or Vanillawc (web-components)
 
 ![](https://avatars.githubusercontent.com/u/61727377?s=280&v=4)
-### From @1.5.0 version 
+
+### From @1.4.0 version 
 
 Since version @1.4.0 you can create a simple microfrontend without big problems, but I am working to make this a great generator (be patient).
 
