@@ -40,7 +40,7 @@ const answer = await inquirer.prompt([
             name:'framework',
             message:'What framework do you want to use?',
             default: 'react',
-            choices: ['react', 'vue', 'angular','svelte','vanillajs','vanillawc']
+            choices: ['react', 'vue', 'angular','svelte','vanillajs','vanillawc','lit']
         },
         {
             type:'input',
@@ -204,6 +204,38 @@ const answer = await inquirer.prompt([
     streamDeLectura.on("end", () => {
       streamDeEscritura.close();
     });
+        break;
+      case 'lit':
+        fs.mkdirSync(`${answer.name}/src/components`,'0777',error=>(error))
+        fs.mkdirSync(`${answer.name}/src/components/JS`,'0777',error=>(error))
+        fs.mkdirSync(`${answer.name}/src/components/Webpack`,'0777',error=>(error))
+        fs.copyFileSync(path.join(__dirname,'templates/lit/Webpack/Webpack.js'),`${answer.name}/src/components/Webpack/Webpack.js`)
+        fs.copyFileSync(path.join(__dirname,'templates/lit/JS/Js.js'),`${answer.name}/src/components/JS/Js.js`)
+        fs.copyFileSync(path.join(__dirname,'templates/lit/stylesheet.css'),`${answer.name}/src/stylesheet.css`)
+        fs.copyFileSync(path.join(__dirname,'templates/lit/index.js'),`${answer.name}/src/index.js`)
+        //Create App.js 
+    const streamDeLecturaLit = fs.createReadStream(path.join(__dirname,`templates/lit/Lit.js`), {
+      autoClose: true,
+    });
+    const streamDeEscrituraLit = fs.createWriteStream(`${answer.name}/src/${fileName}.js`);
+    streamDeLecturaLit.on("data", chunk => {
+      const textoParcial = chunk.toString();
+      const textoParcialReemplazado = textoParcial.replace('lit-app',`${answer.name.toLowerCase()}-app`)
+      .replace(/LitApp/g,`${fileName}`)
+      streamDeEscrituraLit.write(textoParcialReemplazado);
+    });
+    streamDeEscrituraLit.on("error", err => {
+      console.log("Ha ocurrido un error en la escritura del archivo\n", { err });
+    });
+    streamDeLecturaLit.on("error", err => {
+      console.log("Ha ocurrido un error\n", { err });
+    });
+    
+    streamDeLecturaLit.on("end", () => {
+      streamDeEscrituraLit.close();
+    });
+      break;
+
       default:
     }
     
@@ -267,6 +299,7 @@ const answer = await inquirer.prompt([
         .replace("</app-angular>",`</app-${answer.name.toLowerCase()}>`)
         .replace('<main></main>',`<${answer.name.toLowerCase()}></${answer.name.toLowerCase()}>`)
         
+        
         streamHtmlW.write(textoParcialReemplazado);
       });
       streamHtmlW.on("error", err => {
@@ -301,6 +334,8 @@ const answer = await inquirer.prompt([
       .replace('main',`${answer.name.toLowerCase()}`)
       .replace(/Svelte/g,`${fileName}`)
       .replace(`<my-app />`,`<${answer.name.toLowerCase()}-app />`)
+      .replace('./Lit.js',`./${fileName}.js`)
+      .replace('<lit-app></lit-app>',`<${answer.name.toLowerCase()}-app></${answer.name.toLowerCase()}-app>`)
       streamDeEscrituraB.write(textoParcialReemplazado);
     });
     streamDeEscrituraB.on("error", err => {
