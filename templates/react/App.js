@@ -1,14 +1,18 @@
 import React from 'react';
-import Logo from './components/Logo';
-
-import style from './style.module.css';
+import { HashRouter, Routes, Route } from 'react-router-dom';
+import Home from './routes/Home';
+// import { useHook } from './hooks/useHook';
+import './style.module.css';
 
 const App = () => {
+  // const { name } = useHook('name');
+
   return (
-      <div className={style.myclass}>
-        <h1 className={style.h1}>This is My microfrontend React</h1>
-        <Logo />
-      </div>
+    <HashRouter>
+      <Routes>
+        <Route path='/' element={ <Home />} />
+      </Routes>
+    </HashRouter>
   );
 };
 

@@ -1,6 +1,6 @@
 {
   "name": "microfrontend-create",
-  "version": "1.7.0",
+  "version": "1.8.0",
   "description": "This is a microfrontend project builder through webpack v5 (ModuleFederationPlugin). You can create a 'container' or 'child' microfrontend. You will also be able to decide under which development environment to work, be it 'React', 'Vue', 'Angular', 'Svelte' , 'Vanillajs', 'Vanillawc' (web-components) or 'Lit'",
   "main": "src/index.js",
   "type": "module",
@@ -21,15 +21,18 @@
     "svelte",
     "webpack",
     "modulefederationplugin",
-    "js"
+    "js",
+    "webcomponents",
+    "lit"
   ],
   "author": "Gastón Maximiliano Grecco <gastonmgrecco@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "colors": "^1.4.0",
     "inquirer": "^9.0.0",
-    "shelljs": "^0.8.5"
+    "shelljs": "^0.8.5",
+    "yargs": "^17.5.1"
   },
-  "devDependencies": {},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/GastonMGrecco/microfrontend-create.git"

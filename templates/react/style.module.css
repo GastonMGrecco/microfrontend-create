@@ -4,17 +4,8 @@
     padding:0;
     box-sizing: border-box;
 }
-.myclass{
-    display: column;
-    justify-content: center;
-    align-content: center;
-   
-}
-.h1 {
-    text-align: center;
-    font-size: 50px;
-    color: gray;
-}
+
 body{
-    background-color:rgb(32,35,42)
+    background-color:rgb(32,35,42);
+    overflow:hidden ;
 }

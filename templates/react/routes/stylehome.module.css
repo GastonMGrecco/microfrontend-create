@@ -1,0 +1,28 @@
+.container{
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items:center; 
+    
+}
+.h1 {
+    text-align: center;
+    font-size: 50px;
+    color: gray;
+}
+.container2{
+    position: relative;
+    width:100vw;
+    height:50vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+}
+@media (min-width: 768px) {
+    .container2{
+      flex-direction:row;
+      justify-content: space-around;
+    } 
+}

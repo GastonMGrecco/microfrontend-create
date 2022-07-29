@@ -3,7 +3,8 @@
 ## Description
 This is a microfrontend project builder through webpack v5 (ModuleFederationPlugin). You can create a 'container' or 'child' microfrontend. You will also be able to decide under which development environment to work, be it 'React', 'Vue', 'Angular', 'Svelte' , 'Vanillajs', 'Vanillawc' (web-components) or 'Lit'
 
-![](https://avatars.githubusercontent.com/u/61727377?s=280&v=4)
+<img src="https://avatars.githubusercontent.com/u/61727377?s=280&v=4" height=200/>
+<img src=https://miro.medium.com/max/1400/1*KrcqaSrNLLg-Qycd1M_D2A.jpeg height=200/>
 
 ### From @1.4.0 version 
 
@@ -50,11 +51,54 @@ Required 16.14.2 version or higher
 By convention port 8080 is used for the container. Either way, you can change this value inside the "webpack.config.js" file whenever you want.
 
 `? What port do you want to use? (8080)`
+` CREATE mymicrofrontend `
 
-`Your 'my-microfrontend' project is ready to go.`
+` CREATE mymicrofrontend/src`
+
+` CREATE mymicrofrontend/src/assets `  
+
+` CREATE mymicrofrontend/public   ` 
+
+` CREATE mymicrofrontend/.eslintrc.json`
+
+` CREATE mymicrofrontend/.gitignore`
+
+` CREATE mymicrofrontend/src/index.js`
+
+` CREATE mymicrofrontend/src/components`
+
+` CREATE mymicrofrontend/src/hooks`
+
+` CREATE mymicrofrontend/src/redux`
+
+` CREATE mymicrofrontend/src/routes`
+
+` CREATE mymicrofrontend/src/components/Logo.js`
+
+` CREATE mymicrofrontend/src/components/stylelogo.module.css`
+
+` CREATE mymicrofrontend/src/assets/logo.svg`
+
+` CREATE mymicrofrontend/src/Mymicrofrontend.js`
+
+` CREATE mymicrofrontend/src/style.module.css`
+
+` CREATE mymicrofrontend/src/webpack.config.js`
+
+` CREATE mymicrofrontend/public/index.html`
+
+` CREATE mymicrofrontend/src/bootstrap.js`
+
+
+` Your 'mymicrofrontend' microfrontend have been created successfully !!! `
+
+
 ` Next steps:`
+
 `▶️   cd my-microfrontend`
+
 `▶️   npm install or npm i`
+
 `▶️   npm start`
 
 ### Contact me
